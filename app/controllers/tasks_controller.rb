@@ -8,7 +8,7 @@ class TasksController < ApplicationController
   end
   
   def new
-    @task = task.new
+    @task = Task.new
   end
   
   def create
@@ -22,12 +22,6 @@ class TasksController < ApplicationController
       render :new
     end
   end
-
-private
-  def task_params
-    params.require(:task).permit(vontent)
-  end
-
 
   def edit
     @task = Task.find(params[:id])
@@ -51,5 +45,13 @@ private
     flash[:success] = "タスクは正常に削除されました"
     redirect_to tasks_url
   end
+  
+private
+  def set_task
+    @task = Task.find(params[:id])
+  end
+  def task_params
+    params.require(:task).permit(:content)
+  end  
 
 end
